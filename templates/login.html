@@ -24,8 +24,8 @@
    <h1>ENTER DETAILS</h1> 
    <div class="form">
     <form action="">
-    <input type="text" name="email"> <br>
-    <input type="password" name="password"> <br>
+    <input type="text" name="email" id="in"> <br>
+    <input type="password" name="password" id="in"> <br>
     <button>submit</button>
 </form> 
 </div>
@@ -36,5 +36,24 @@
 <style>
     .form{
         text-align: center;
+    }
+    #in{
+        height: 40px;
+        width: 240px;
+        border-radius: 200px;
+    }
+    .navbar ul{
+        display: flex;
+        gap: 50px;
+        float: right;
+        text-decoration: none;
+        font-size: 20px;
+        
+    }
+    .navbar ul li a{
+        text-decoration: none;
+    }
+    body{
+        background-color: cadetblue;
     }
 </style>
