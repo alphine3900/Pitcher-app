@@ -2,6 +2,7 @@
 from crypt import methods
 from flask import Flask, session, render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 
 
 app = Flask(__name__)
@@ -11,10 +12,11 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=False
 app.config["SECRET_KEY"] = "thisisasecretkey"
 
 
-class User(db.Model):
+class User(db.Model,UserMixin):
   id = db.Column(db.Integer,primary_key=True)
-  User = db.Column(db.String(20), nullable=False)
-  completed = db.Column(db.Integer,default=0)
+  username = db.Column(db.String(50), nullable=False)
+  email = db.Column(db.string(50), nullable=False)
+  password = db.Column(db.String(200),nullable=False)
 
 
 @app.route('/login',methods = ["GET","POST"])
@@ -56,7 +58,7 @@ def before_request():
      if "user" in session:
         user = session["user"]
 
-    return render_template("login.html")
+    return render_template( "login.html")
     return redirect(url_for("home"))
 
 
