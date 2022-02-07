@@ -27,11 +27,12 @@
     <h1>SIGN IN</h1>
     <div class="frm"> 
         <form action="" method="POST">
-        <input type="text" name="username" id="in"> <br> <br>
-        <input type="email" name="email" id="in"> <br> <br>
-        <input type="password" name="password" id="in"> <br> <br>
-        <button>submit</button> <br>
+            {{form.hidden_tag()}}
+            {{form.username}}
+            {{form.password}}
+            {{form.submit}}
     </form>
+    <a href="{{url_for('login')}}">already have an account? Log In</a>
 </div> 
     
 </body>
