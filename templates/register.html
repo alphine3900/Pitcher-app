@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>sign in</title>
 </head>
 <body>
 
@@ -27,10 +27,13 @@
     <h1>SIGN IN</h1>
     <div class="frm"> 
         <form action="" method="POST">
-            {{form.hidden_tag()}}
+
+            {{form.hidden_tag()}} <br>
             {{form.username}}
-            {{form.password}}
-            {{form.submit}}
+            {{form.password}} <br> <br>
+            {{form.submit}} <br>
+           
+            
     </form>
     <a href="{{url_for('login')}}">already have an account? Log In</a>
 </div> 
@@ -64,7 +67,7 @@
     }
     #in{
         height: 40px;
-        width: 240px;
+       
         border-radius: 200px;
     }
    

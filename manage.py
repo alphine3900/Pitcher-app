@@ -85,7 +85,7 @@ def login():
 
 
 @app.route('/dashboard', methods=["GET","POST"])
-@login_required
+# @login_required
 def dashboard():
  
 
