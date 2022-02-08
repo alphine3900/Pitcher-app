@@ -11,6 +11,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,SubmitField
 from wtforms.validators import InputRequired,Length,ValidationError
 from flask_bcrypt import Bcrypt
+from databases import db
 
 
 app = Flask(__name__)
@@ -45,6 +46,9 @@ class RegisterForm(FlaskForm):
 
   password=StringField(validators=[InputRequired(),Length(min=4, max=20) ], render_kw={"placeholder":"password"})
   submit=SubmitField("Register")
+
+  # email=StringField(validators=[InputRequired(),Length(min=4, max=200) ], render_kw={"placeholder":"email"})
+  # submit=SubmitField("Register")
 
 
   def validate_username(self,username):
