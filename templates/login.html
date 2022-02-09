@@ -27,7 +27,7 @@
    {{form.hidden_tag()}} <br>
    {{form.username}} <br> <br>
    {{form.password}} <br> <br>
-   {{form.submit}} <br>
+   <a href="{{url_for('dashboard')}}">{{form.submit}}</a> <br>
 </form> <br>
 <a href="{{url_for('register')}}">Don't hane an account? Sign Up</a> 
 </div>
