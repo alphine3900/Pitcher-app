@@ -11,6 +11,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,SubmitField
 from wtforms.validators import InputRequired,Length,ValidationError
 from flask_bcrypt import Bcrypt
+# from flask import User,Pitch
 from databases import Database
 # from app import db
 
@@ -67,9 +68,29 @@ class LoginForm(FlaskForm):
 
 @app.route("/")
 def home():
-    db.create_all()
-    if User:
-        return render_template("home.html")
+
+    title = 'Home - Welcome to  Pitch App'
+
+    # Getting reviews by category
+    interview_piches = Pitch.get_pitches('interview')
+    product_piches = Pitch.get_pitches('MOTIVATIONAL')
+    promotion_pitches = Pitch.get_pitches('Entertainment')
+
+
+    return render_template('home.html',title = title, interview = interview_piches, product = product_piches, promotion = promotion_pitches)
+
+
+
+
+
+
+
+
+
+
+#     db.create_all()
+#     if User:
+#         return render_template("home.html")
 
 
 
