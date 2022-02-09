@@ -11,7 +11,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,SubmitField
 from wtforms.validators import InputRequired,Length,ValidationError
 from flask_bcrypt import Bcrypt
-from databases import db
+from databases import Database
+# from app import db
 
 
 app = Flask(__name__)
@@ -66,6 +67,7 @@ class LoginForm(FlaskForm):
 
 @app.route("/")
 def home():
+    db.create_all()
     if User:
         return render_template("home.html")
 
@@ -81,7 +83,7 @@ def login():
     if user:
       if bcrypt.check_password_hash(user.password,form.password.data):
         login_user(user)
-      return redirect(url_for("dashboard"))
+      return redirect(url_for("profile"))
 
   
   return render_template('login.html', form=form)
@@ -115,7 +117,8 @@ def register():
     new_user=User(username=form.password.data, password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
-    return redirect(url_for("login"))
+    # flash("Thanks for registration!")
+    return redirect(url_for("home"))
     
   return render_template("register.html", form=form)
  
