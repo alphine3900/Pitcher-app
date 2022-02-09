@@ -4,7 +4,7 @@ from enum import unique
 from mimetypes import init
 from wsgiref.validate import validator
 import bcrypt
-from flask import Flask, session, render_template,request,redirect,url_for
+from flask import Flask, session, render_template,request,redirect,url_for,flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin,login_user,LoginManager,login_required,logout_user,current_user
 from flask_wtf import FlaskForm
@@ -83,15 +83,26 @@ def login():
     if user:
       if bcrypt.check_password_hash(user.password,form.password.data):
         login_user(user)
-      return redirect(url_for("profile"))
+        if user.check_password(form.password.data) and user is not None:
+
+            login_user(user)
+            flash('Logged in Succesfully!')
+
+            next = request.args.get('next')
+
+            if next == None or not next[0] == '/':
+                next = url_for('welcome_user')
+
+            # return redirect(next)
+      return redirect(url_for("home"))
 
   
-  return render_template('login.html', form=form)
+  return render_template('dashboard.html', form=form)
 
 
 
-@app.route('/dashboard', methods=["GET","POST"])
-# @login_required
+@app.route('/dashboard')
+@login_required
 def dashboard():
  
 
@@ -112,7 +123,7 @@ app.route('/logout', methods=["GET","POST"])
 @login_required
 def logout():
   logout_user()
-  return redirect(url_for("login"))
+  return redirect(url_for("home"))
  
 
 
@@ -126,8 +137,8 @@ def register():
     new_user=User(username=form.password.data, password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
-    # flash("Thanks for registration!")
-    return redirect(url_for("home"))
+    flash("Thanks for registration!")
+    return redirect(url_for("login"))
     
   return render_template("register.html", form=form)
  
