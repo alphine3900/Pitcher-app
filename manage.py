@@ -5,14 +5,15 @@ from mimetypes import init
 from wsgiref.validate import validator
 import bcrypt
 from .. import db,photos
-from flask import Flask, session, render_template,request,redirect,url_for,flash
+from flask import Flask, session, render_template,request,redirect,url_for,flash,abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin,login_user,LoginManager,login_required,logout_user,current_user
+from flask import PitchForm,CommentForm,updateProfile
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField,PasswordField,SubmitField,SelectField
 from wtforms.validators import InputRequired,Length,ValidationError
 from flask_bcrypt import Bcrypt
-from flask import User,Pitch,comment
+from flask import User,Pitch,Comment
 from databases import Database
 # from app import db
 
@@ -88,15 +89,11 @@ class CommentForm(FlaskForm):
 @app.route("/")
 def home():
 
-    title = 'Home - Welcome to  Pitch App'
+    db.create_all()
+    if User:
+        return render_template("home.html")
 
-    # Getting reviews by category
-    interview_piches = Pitch.get_pitches('interview')
-    product_piches = Pitch.get_pitches('MOTIVATIONAL')
-    promotion_pitches = Pitch.get_pitches('Entertainment')
-
-
-    return render_template('home.html',title = title, interview = interview_piches, product = product_piches, promotion = promotion_pitches)
+    
 @app.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -232,9 +229,6 @@ def user_pitches(uname):
 
 
 
-#     db.create_all()
-#     if User:
-#         return render_template("home.html")
 
 @app.route('/login', methods=["GET","POST"])
 def login():
@@ -265,6 +259,15 @@ def login():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+  title = 'Home - Welcome to  Pitch App'
+
+    # Getting reviews by category
+  interview_piches = Pitch.get_pitches('interview')
+  product_piches = Pitch.get_pitches('MOTIVATIONAL')
+  promotion_pitches = Pitch.get_pitches('Entertainment')
+
+
+  return render_template('dashboard.html',title = title, interview = interview_piches, product = product_piches, promotion = promotion_pitches)
  
 
   return render_template('dashboard.html')
