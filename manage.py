@@ -83,7 +83,7 @@ def login():
     if user:
       # if bcrypt.check_password_hash(user.password,form.password.data):
       #   login_user(user)
-     if user.check_password(form.password.data) and user is not None:
+     if user.check_password_hash(user.password,form.password.data):
 
             login_user(user)
             flash('Logged in Succesfully!')
@@ -91,13 +91,13 @@ def login():
             next = request.args.get('next')
 
             if next == None or not next[0] == '/':
-                next = url_for('dashboard')
+                next = url_for('')
 
             # return redirect(next)
     return redirect(url_for("dashboard"))
 
   
-  return render_template('login.html', form=form)
+  return render_template('dashboard.html', form=form)
 
 
 
