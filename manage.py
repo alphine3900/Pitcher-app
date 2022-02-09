@@ -98,6 +98,15 @@ def dashboard():
   return render_template('dashboard.html')
 
 
+@app.route('/pitches', methods=["GET","POST"])
+# @login_required
+def pitches():
+ 
+
+  return render_template('pitches.html')
+
+
+
 
 app.route('/logout', methods=["GET","POST"])
 @login_required
