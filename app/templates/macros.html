@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% macro displayPitches(pitches_list)%}
+
+
+<div class="container-fluid">
+    {%for pitch in pitches_list%}
+    <div class="card">
+        <div class="card-header">
+             {{pitch.category}}
+
+        </div>
+        <div class="card-body">
+            {{pitch.title}}
+             {{pitch.pitch}}
+
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary">likes {{pitch.like.count()}}</button>
+            <button class="btn btn-primary">dislikes {{pitch.like.count()}}</button>
+             <button class="btn btn-primary">comments</button>
+
+
+        </div>
+
+    </div>
+    {%endfor%}
+</div>
+
+
+ {%endmacro%}
