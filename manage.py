@@ -249,7 +249,7 @@ def login():
   if form.validate_on_submit():
     user = User.query.filter_by (username=form.username.data).first()
     if user:
-      
+
       # if bcrypt.check_passwor-----d_hash(user.password,form.password.data):
       #   login_user(user)
      if user.verify_password(form.password.data):
