@@ -256,16 +256,16 @@ def login():
 
 
 
-# @app.route('/dashboard')
-# @login_required
-# def dashboard():
+@app.route('/dashboard')
+@login_required
+def dashboard():
 #   title = 'Home - Welcome to  Pitch App'
 
 #     # Getting reviews by category
 #   interview_piches = Pitch.get_pitches('interview')
 #   product_piches = Pitch.get_pitches('MOTIVATIONAL')
 #   promotion_pitches = Pitch.get_pitches('Entertainment')
-
+    return render_template('dashboard.html')
 
 #   return render_template('dashboard.html',title = title, interview = interview_piches, product = product_piches, promotion = promotion_pitches)
  
