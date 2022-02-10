@@ -1,47 +1,50 @@
-{% extends "base.html" %}
-
-{% block styles%}
-{{ super() }}
-
- <link href="https://fonts.googleapis.com/css?family=Courgette|Gloria+Hallelujah|Indie+Flower|Permanent+Marker|Varela+Round" rel="stylesheet">
-{% endblock%}
-
-
-{% block content %}
-<div class="container">
-    {% for message in get_flashed_messages() %}
-    <div class="alert alert-info">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      {{ message }}
-    </div>
-    {% endfor %}
-    <h1 class="text-center">Welcome to  Pitch_App</h1>
-  <div class="img">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Gloria+Hallelujah|Indie+Flower|Permanent+Marker|Varela+Round" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-info">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {{ message }}
+        </div>
+        {% endfor %}
+        <h1 class="text-center">Welcome to  Pitch_App</h1>
+      <div class="img">
+        
+      </div>
+      <br>
+      <hr>
+      <div class="mess1">
+        <p class="style"><em>“Seasons going by like am binge watching” </em></p>
+        <p class="style"><strong> ― Drizzy storm </strong></p>
+       </div>
     
-  </div>
-  <br>
-  <hr>
-  <div class="mess1">
-    <p class="style"><em>“Seasons going by like am binge watching” </em></p>
-    <p class="style"><strong> ― Drizzy storm </strong></p>
-   </div>
-
-   <br>
-   <h2 class="text-center">Categories</h2>
-   <br>
-   <hr>
-   <br>
-   <div class="row categories">
-     <div class="category col-xs-12 col-sm-12 col-md-4 col-lg-4">
-       <a href="{{url_for('main.pitches_category',category='Entertainment')}}">Entertainmen</a>
-     </div>
-     <div class="category col-xs-12 col-sm-12 col-md-4 col-lg-4">
-       <a href="{{url_for('main.pitches_category',category='motivational')}}">Motivational</a>
-     </div>
-     <div class="category col-xs-12 col-sm-12 col-md-4 col-lg-4">
-       <a href="{{url_for('main.pitches_category',category='promotion')}}">Interview</a>
-     </div>
-   </div>
+       <br>
+       <h2 class="text-center">Categories</h2>
+       <br>
+       <hr>
+       <br>
+       <div class="row categories">
+         <div class="category col-xs-12 col-sm-12 col-md-4 col-lg-4">
+           <a href="{{url_for('pitches',pitches='Entertainment')}}">Entertainment</a>
+         </div>
+         <div class="category col-xs-12 col-sm-12 col-md-4 col-lg-4">
+           <a href="{{url_for('pitches',pitches='motivational')}}">Motivational</a>
+         </div>
+         <div class="category col-xs-12 col-sm-12 col-md-4 col-lg-4">
+           <a href="{{url_for('pitches',pitches='promotion')}}">Interview</a>
+         </div>
+       </div>
+    
+</body>
+</html>
 
    <style>
     .img {
@@ -64,5 +67,4 @@
     }
   </style>
   
-  
-{% endblock %}
+}
