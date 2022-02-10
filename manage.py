@@ -1,4 +1,4 @@
-from typing import Text
+# from typing import Text
 from crypt import methods
 from enum import unique
 from mimetypes import init
