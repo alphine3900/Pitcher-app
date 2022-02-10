@@ -15,6 +15,7 @@ from wtforms.validators import InputRequired,Length,ValidationError
 from flask_bcrypt import Bcrypt
 # from flask import User,Pitch,Comment
 from databases import Database
+from werkzeug.security import generate_password_hash, check_password_hash
 # from app import db
 
 
@@ -41,7 +42,17 @@ class User(db.Model,UserMixin):
   id = db.Column(db.Integer,primary_key=True)
   username = db.Column(db.String(50), nullable=False, unique=True)
   # email = db.Column(db.String(50), nullable=False)
-  password = db.Column(db.String(200),nullable=False)
+  # password = db.Column(db.String(200),nullable=False)
+  @property
+  def password(self):
+    raise AttributeError('You Cannot Read the password Attribute')
+
+  @password.setter
+  def password(self, password):
+    self.pass_secure = generate_password_hash(password)
+
+  def verify_password(self, password):
+    return check_password_hash(self.pass_secure, password)
 
 
 class RegisterForm(FlaskForm):
@@ -67,6 +78,8 @@ class LoginForm(FlaskForm):
 
   password=StringField(validators=[InputRequired(),Length(min=4, max=20) ], render_kw={"placeholder":"password"})
   submit=SubmitField("Login")
+
+
 
 
 #   class PitchForm(FlaskForm):
@@ -236,9 +249,10 @@ def login():
   if form.validate_on_submit():
     user = User.query.filter_by (username=form.username.data).first()
     if user:
-      # if bcrypt.check_password_hash(user.password,form.password.data):
+      
+      # if bcrypt.check_passwor-----d_hash(user.password,form.password.data):
       #   login_user(user)
-     if user.check_password_hash(user.password,form.password.data):
+     if user.verify_password(form.password.data):
 
             login_user(user)
             flash('Logged in Succesfully!')
@@ -252,25 +266,16 @@ def login():
     return redirect(url_for("dashboard"))
 
   
-  return render_template('dashboard.html', form=form)
+  return render_template('login.html', form=form)
 
 
 
 @app.route('/dashboard')
 @login_required
 def dashboard():
-#   title = 'Home - Welcome to  Pitch App'
 
-#     # Getting reviews by category
-#   interview_piches = Pitch.get_pitches('interview')
-#   product_piches = Pitch.get_pitches('MOTIVATIONAL')
-#   promotion_pitches = Pitch.get_pitches('Entertainment')
     return render_template('dashboard.html')
 
-#   return render_template('dashboard.html',title = title, interview = interview_piches, product = product_piches, promotion = promotion_pitches)
- 
-
-#   return render_template('dashboard.html')
 
 
 @app.route('/pitches', methods=["GET","POST"])
