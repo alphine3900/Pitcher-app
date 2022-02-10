@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+{% endblock%}
+{% block content %}
+{%for pitch in pitches%}
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+             {{pitch.category}}
+
+        </div>
+        <div class="card-body">
+            {{pitch.title}}
+             {{pitch.pitch}}
+
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-warning">
+                <a lass="text-white" href="{{url_for('main.upVote',id=pitch.id)}}">
+                   likes {{pitch.upvote.count()}}
+                </a>
+                </button>
+            <button class="btn btn-danger">
+                <a class="text-white" href="{{url_for('main.downVote',id=pitch.id)}}">
+                                    dislikes {{pitch.downvote.count()}}
+
+                </a>
+            </button>
+                 <a href="{{url_for('main.comment',id=pitch.id)}}">
+                                 <button class="btn btn-primary">
+ comments             </button>
+
+                 </a>
+
+        </div>
+
+    </div>
+</div>
+{%endfor%}
+
+{% endblock %}
