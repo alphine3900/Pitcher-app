@@ -21,13 +21,13 @@ These are the behaviours/features that the application implements for use by a u
 In your terminal:
 
  * $ git clone https://github.com/alphine3900/Pitcher-App
- * $ ./start.sh
+ * $ flask run
  
 ### Running the Application
 To run the application, in your terminal:
  * $ #!/usr/bin/env python3.6
  * $n cd app
- * $ python3 manage.py
+ * $ ./start.sh
 ## live site
  [click here](https://pitchminuteflask.herokuapp.com/)
 
